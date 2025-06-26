@@ -10,7 +10,7 @@ void main() async {
 
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-      apiKey: "AIzaSyCekLpSO_N-qZsiGqsRekY0ggVHHcq6lbk",
+      apiKey: "API",
       authDomain: "sustMedical.firebaseapp.com",
       projectId: "sustmedical-46753",
       storageBucket: "sustMedical.appspot.com",
