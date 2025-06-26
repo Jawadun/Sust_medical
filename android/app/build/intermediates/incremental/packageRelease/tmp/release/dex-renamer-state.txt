@@ -1,0 +1,4 @@
+#Thu Jun 26 01:20:58 BDT 2025
+base.0=F\:\\Code Flutter\\sust_medical\\android\\app\\build\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

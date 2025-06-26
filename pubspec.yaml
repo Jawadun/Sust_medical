@@ -1,0 +1,52 @@
+name: medical
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.3 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  google_fonts: ^6.2.1
+  font_awesome_flutter: ^10.5.0
+  rounded_loading_button: ^2.1.0
+  responsive_sizer: ^3.1.1
+  smooth_page_indicator: ^1.1.0
+  page_transition: ^2.0.9
+  flutter_chat_ui: ^1.6.9
+  animated_bottom_navigation_bar: ^1.2.0
+
+  # ✅ Firebase packages
+  firebase_core: ^3.12.1
+  firebase_auth: ^5.5.1
+  cloud_firestore: ^5.6.5
+  firebase_storage: ^12.4.4
+  firebase_messaging: ^15.2.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+  assets:
+    - images/logo.png
+    - images/logo-green.png
+    - images/google.png
+    - images/apple.png
+    - images/doctor1.png
+    - images/doctor2.png
+    - images/doctor3.png
+    - images/facebook.png
+    - images/article1.png
+    - images/capsules.png
+    - images/capsules2.png
+    - lib/icons/
+

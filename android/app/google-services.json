@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "501685871815",
+    "project_id": "sustmedical-46753",
+    "storage_bucket": "sustmedical-46753.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501685871815:android:e2109cfb0accd780b74ae2",
+        "android_client_info": {
+          "package_name": "com.example.sust_medical"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCekLpSO_N-qZsiGqsRekY0ggVHHcq6lbk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
