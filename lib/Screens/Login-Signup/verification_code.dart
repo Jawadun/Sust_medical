@@ -63,20 +63,20 @@ class verification_code extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0), // Adjust horizontal padding as desired
+                      horizontal: 8.0), 
                   child: TextField(
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
 
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(borderSide: BorderSide.none),
-                      counterText: '', // Set counterText to an empty string
+                      counterText: '', 
                       contentPadding:
-                          EdgeInsets.zero, // Set contentPadding to zero
+                          EdgeInsets.zero, 
                     ),
                     maxLength: 1,
                     style: TextStyle(
-                        fontSize: 20.sp), // Adjust font size as desired
+                        fontSize: 20.sp), 
                   ),
                 ),
               ),
@@ -90,20 +90,20 @@ class verification_code extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0), // Adjust horizontal padding as desired
+                      horizontal: 8.0), 
                   child: TextField(
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
 
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(borderSide: BorderSide.none),
-                      counterText: '', // Set counterText to an empty string
+                      counterText: '', 
                       contentPadding:
-                          EdgeInsets.zero, // Set contentPadding to zero
+                          EdgeInsets.zero, 
                     ),
                     maxLength: 1,
                     style: TextStyle(
-                        fontSize: 20.sp), // Adjust font size as desired
+                        fontSize: 20.sp), 
                   ),
                 ),
               ),
@@ -117,19 +117,19 @@ class verification_code extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0), // Adjust horizontal padding as desired
+                      horizontal: 8.0), 
                   child: TextField(
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(borderSide: BorderSide.none),
-                      counterText: '', // Set counterText to an empty string
+                      counterText: '', 
                       contentPadding:
-                          EdgeInsets.zero, // Set contentPadding to zero
+                          EdgeInsets.zero, 
                     ),
                     maxLength: 1,
                     style: TextStyle(
-                        fontSize: 20.sp), // Adjust font size as desired
+                        fontSize: 20.sp), 
                   ),
                 ),
               ),
@@ -143,19 +143,19 @@ class verification_code extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0), // Adjust horizontal padding as desired
+                      horizontal: 8.0), 
                   child: TextField(
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(borderSide: BorderSide.none),
-                      counterText: '', // Set counterText to an empty string
+                      counterText: '', 
                       contentPadding:
-                          EdgeInsets.zero, // Set contentPadding to zero
+                          EdgeInsets.zero, 
                     ),
                     maxLength: 1,
                     style: TextStyle(
-                        fontSize: 20.sp), // Adjust font size as desired
+                        fontSize: 20.sp), 
                   ),
                 ),
               ),
@@ -169,7 +169,7 @@ class verification_code extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.9,
             child: ElevatedButton(
               onPressed: () {
-                // Perform verification or other actions here
+                
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 3, 190, 150),

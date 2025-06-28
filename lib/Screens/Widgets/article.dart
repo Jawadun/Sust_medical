@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:medical/Screens/Views/articlePage.dart'; // make sure this exists
 
 class article extends StatelessWidget {
   final String mainText;
@@ -8,7 +9,8 @@ class article extends StatelessWidget {
   final String duration;
   final String image;
 
-  const article({super.key, 
+  const article({
+    super.key,
     required this.mainText,
     required this.dateText,
     required this.duration,
@@ -17,75 +19,94 @@ class article extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.08,
-        width: MediaQuery.of(context).size.width * 0.8500,
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 255, 255, 255),
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: const Color.fromARGB(255, 231, 231, 231)),
-        ),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          const SizedBox(
-            width: 5,
+    final containerHeight = MediaQuery.of(context).size.height * 0.1;
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const articlePage()),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        child: Container(
+          height: containerHeight,
+          width: MediaQuery.of(context).size.width * 0.85,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: const Color(0xFFE7E7E7)),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.5,
-            width: MediaQuery.of(context).size.width * 0.1200,
-            child: Image.asset(image),
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.05,
-            width: MediaQuery.of(context).size.width * 0.5,
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                mainText,
-                style: GoogleFonts.poppins(
-                    fontSize: 13.sp, fontWeight: FontWeight.w700),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const SizedBox(width: 5),
+
+              SizedBox(
+                height: containerHeight * 0.8,
+                width: containerHeight * 0.8,
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.cover,
+                ),
               ),
-              Expanded(
-                child: Row(
+
+              const SizedBox(width: 15),
+
+              Flexible(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      dateText,
+                      mainText,
                       style: GoogleFonts.poppins(
-                          fontSize: 12.sp, fontWeight: FontWeight.w300),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      duration,
-                      style: GoogleFonts.poppins(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
-                        color: const Color.fromARGB(255, 0, 136, 102),
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w700,
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        Text(
+                          dateText,
+                          style: GoogleFonts.poppins(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          duration,
+                          style: GoogleFonts.poppins(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xFF008866),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-            ]),
+
+              const SizedBox(width: 25),
+
+              SizedBox(
+                height: containerHeight * 0.6,
+                width: containerHeight * 0.6,
+                child: Image.asset(
+                  "lib/icons/Bookmark.png",
+                  filterQuality: FilterQuality.high,
+                ),
+              ),
+            ],
           ),
-          const SizedBox(
-            width: 25,
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.07,
-            width: MediaQuery.of(context).size.width * 0.09,
-            child: Image.asset(
-              "lib/icons/Bookmark.png",
-              filterQuality: FilterQuality.high,
-            ),
-          ),
-        ]),
+        ),
       ),
     );
   }

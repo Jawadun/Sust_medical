@@ -14,7 +14,6 @@ class chat_screen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        // Leading icon for navigation
         leading: GestureDetector(
           onTap: () {
             Navigator.push(
@@ -31,7 +30,6 @@ class chat_screen extends StatelessWidget {
             )),
           ),
         ),
-        // Title of the chat screen
         title: Text(
           "Dr. Marcus Horizon",
           style: GoogleFonts.poppins(
@@ -47,7 +45,6 @@ class chat_screen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-                // Video call icon
                 Container(
                   height: 18,
                   width: 18,
@@ -59,7 +56,6 @@ class chat_screen extends StatelessWidget {
                 const SizedBox(
                   width: 15,
                 ),
-                // Call icon
                 Container(
                   height: 18,
                   width: 18,
@@ -71,7 +67,6 @@ class chat_screen extends StatelessWidget {
                 const SizedBox(
                   width: 15,
                 ),
-                // More options icon
                 Container(
                   height: 18,
                   width: 18,
@@ -94,17 +89,14 @@ class chat_screen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Widget to display chat information
                 const chat_info(),
                 const SizedBox(
                   height: 30,
                 ),
-                // Widget to display doctor's information
                 const chat_doctor(),
                 const SizedBox(
                   height: 15,
                 ),
-                // Container for user's introductory message
                 Container(
                   height: MediaQuery.of(context).size.height * 0.03,
                   width: MediaQuery.of(context).size.width * 0.4500,
@@ -128,7 +120,6 @@ class chat_screen extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                // Container for user's message
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -151,7 +142,6 @@ class chat_screen extends StatelessWidget {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                // User's message content
                                 child: Text(
                                   "I have suffering from headache and cold for 3 days, I took 2 tablets of dolo,\nbut still pain",
                                   style: TextStyle(
@@ -174,12 +164,10 @@ class chat_screen extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                // Widget to display doctor's information
                 const chat_doctor(),
                 const SizedBox(
                   height: 15,
                 ),
-                // Container for user's introductory message
                 Container(
                   height: MediaQuery.of(context).size.height * 0.03,
                   width: MediaQuery.of(context).size.width * 0.4500,
@@ -203,7 +191,6 @@ class chat_screen extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                // Container for user's message
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -226,7 +213,6 @@ class chat_screen extends StatelessWidget {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                // User's message content
                                 child: Text(
                                   "I have suffering from headache and cold for 3 days, I took 2 tablets of dolo,\nbut still pain",
                                   style: TextStyle(

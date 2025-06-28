@@ -63,7 +63,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
           ],
           backgroundColor: Colors.white,
         ),
-        // ... Your existing code ...
 
         body: Stack(
           alignment: Alignment.bottomCenter,
@@ -116,7 +115,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                             color: showExtendedText
                                 ? const Color.fromARGB(255, 1, 128, 111)
                                 : const Color.fromARGB(255, 1, 128,
-                                    111), // Change color based on visibility
+                                    111), 
                           ),
                         ),
                       ],
@@ -160,14 +159,12 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                 const SizedBox(
                   height: 20,
                 ),
-                //Time select container importing widget from widgets/times_select
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.2400,
                   width: MediaQuery.of(context).size.width * 0.9,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      //In main container 2 Columns use
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.2500,
                         width: MediaQuery.of(context).size.width * 0.2900,
@@ -270,5 +267,75 @@ class _DoctorDetailsState extends State<DoctorDetails> {
             ),
           ],
         ));
+  }
+}
+ double progress = 0.0;
+
+  void updateProgress(double value) {
+    setState(() {
+      progress = value;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Line ProgressBar'),
+      ),
+      body: Center(
+        child: Card(
+          elevation: 5.0,
+          margin: EdgeInsets.all(16.0),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // LinearProgressIndicator to
+                // visually represent progress
+                LinearProgressIndicator(
+                  value: progress,
+                  backgroundColor: Colors.grey,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                ),
+                SizedBox(height: 16.0),
+                // Row containing buttons to control the progress
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    // Button to decrease progress
+                    ElevatedButton(
+                      onPressed: () {
+                        if (progress > 0) {
+                          updateProgress(progress - 0.1);
+                        }
+                      },
+                      child: Text('Decrease'),
+                    ),
+                    // Button to increase progress
+                    ElevatedButton(
+                      onPressed: () {
+                        if (progress < 1.0) {
+                          updateProgress(progress + 0.1);
+                        }
+                      },
+                      child: Text('Increase'),
+                    ),
+                    // Button to reset progress to zero
+                    ElevatedButton(
+                      onPressed: () {
+                        updateProgress(0.0);
+                      },
+                      child: Text('Reset'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

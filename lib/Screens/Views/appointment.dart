@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:medical/Screens/Views/doctor_details_screen.dart';
 import 'package:medical/Screens/Widgets/doctorList.dart';
+import 'package:medical/Screens/Views/Homepage.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -16,17 +17,16 @@ class appointment extends StatelessWidget {
         leading: GestureDetector(
           onTap: () {
             Navigator.pushReplacement(
-                context,
-                PageTransition(
-                    type: PageTransitionType.fade, child: const DoctorDetails()));
+              context,
+              PageTransition(
+                type: PageTransitionType.fade,
+                child: const DoctorDetails(),
+              ),
+            );
           },
-          child: Container(
-            height: 10,
-            width: 10,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-              image: AssetImage("lib/icons/back1.png"),
-            )),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Image.asset("lib/icons/back1.png"),
           ),
         ),
         title: Text(
@@ -38,26 +38,19 @@ class appointment extends StatelessWidget {
         toolbarHeight: 100,
         actions: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Container(
-              height: 10,
-              width: 10,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                image: AssetImage("lib/icons/more.png"),
-              )),
-            ),
+            padding: const EdgeInsets.all(12),
+            child: Image.asset("lib/icons/more.png"),
           ),
         ],
         backgroundColor: Colors.white,
       ),
-      body: SingleChildScrollView(
-        child: Stack(alignment: Alignment.bottomCenter, children: [
-          Column(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.only(bottom: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 5,
-              ),
+              const SizedBox(height: 5),
               const doctorList(
                 distance: "800m away",
                 image: "lib/icons/male-doctor.png",
@@ -65,381 +58,258 @@ class appointment extends StatelessWidget {
                 numRating: "4.7",
                 subtext: "Cardiologist",
               ),
-              const SizedBox(
-                height: 10,
+              const SizedBox(height: 10),
+              _buildLabelRow("Date", "Change"),
+              const SizedBox(height: 10),
+              _buildInfoRow(
+                  context, "lib/icons/callender.png", "Wednesday, Jun 23, 2021 | 10:00 AM"),
+              const SizedBox(height: 20),
+              _buildLabelRow("Reasion", "Change"),
+              const SizedBox(height: 10),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Divider(color: Colors.black12),
               ),
+              const SizedBox(height: 10),
+              _buildInfoRow(context, "lib/icons/pencil.png", "Chest pain"),
+              const SizedBox(height: 15),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Divider(color: Colors.black12),
+              ),
+              const SizedBox(height: 20),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Date",
-                      style: GoogleFonts.inter(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                    Text(
-                      "Change",
-                      style: GoogleFonts.inter(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0,
-                          color: const Color.fromARGB(137, 56, 56, 56)),
-                    ),
-                  ],
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  "Payment Details",
+                  style: GoogleFonts.poppins(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
+              const SizedBox(height: 20),
+              _buildPriceRow("Consultation", "\$60"),
+              _buildPriceRow("Admin Fee", "\$01.00"),
+              _buildPriceRow("Additional Discount", "-"),
+              const SizedBox(height: 15),
+              _buildPriceRow(
+                "Total",
+                "\$61.00",
+                bold: true,
+                color: const Color.fromARGB(255, 4, 92, 58),
               ),
+              const SizedBox(height: 15),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Divider(color: Colors.black12),
+              ),
+              const SizedBox(height: 10),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Text("Payment Method"),
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  height: 55,
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black12),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Visa",
+                        style: GoogleFonts.inter(
+                          fontStyle: FontStyle.italic,
+                          fontSize: 17.sp,
+                          fontWeight: FontWeight.w600,
+                          color: const Color.fromARGB(255, 38, 39, 117),
+                        ),
+                      ),
+                      Text(
+                        "Change",
+                        style: GoogleFonts.inter(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: const Color.fromARGB(137, 56, 56, 56),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      width: MediaQuery.of(context).size.width * 0.1300,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 247, 247, 247),
-                          borderRadius: BorderRadius.circular(18),
-                          image: const DecorationImage(
-                            image: AssetImage(
-                              "lib/icons/callender.png",
-                            ),
-                            filterQuality: FilterQuality.high,
-                          )),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
                     Expanded(
-                      child: Text(
-                        "Wednesday, Jun 23, 2021 | 10:00 AM",
-                        style: GoogleFonts.poppins(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black87),
+                      flex: 1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Total",
+                            style: GoogleFonts.inter(
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w500,
+                              color: const Color.fromARGB(137, 56, 56, 56),
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            "\$61",
+                            style: GoogleFonts.inter(
+                              fontSize: 19.sp,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    Expanded(
+                      flex: 2,
+                      child: GestureDetector(
+                        onTap: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Successfully booked"),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                          Future.delayed(const Duration(seconds: 1), () {
+                            Navigator.pushReplacement(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.fade,
+                                child: const Homepage(),
+                              ),
+                            );
+                          });
+                        },
+                        child: Container(
+                          height: 55,
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 2, 179, 149),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Book",
+                              style: GoogleFonts.poppins(
+                                fontSize: 15.sp,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     )
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Reasion",
-                      style: GoogleFonts.inter(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1,
-                      ),
-                    ),
-                    Text(
-                      "Change",
-                      style: GoogleFonts.inter(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0,
-                          color: const Color.fromARGB(137, 56, 56, 56)),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Divider(
-                  color: Colors.black12,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      width: MediaQuery.of(context).size.width * 0.1300,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 247, 247, 247),
-                          borderRadius: BorderRadius.circular(18),
-                          image: const DecorationImage(
-                            image: AssetImage(
-                              "lib/icons/pencil.png",
-                            ),
-                            filterQuality: FilterQuality.high,
-                          )),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Chest pain",
-                      style: GoogleFonts.poppins(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black87),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Divider(
-                  color: Colors.black12,
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      "Payment Details",
-                      style: GoogleFonts.poppins(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Consultation",
-                      style: GoogleFonts.poppins(
-                          fontSize: 15.sp, color: Colors.black54),
-                    ),
-                    Text(
-                      "\$60",
-                      style: GoogleFonts.poppins(
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Admin Fee",
-                      style: GoogleFonts.poppins(
-                          fontSize: 15.sp, color: Colors.black54),
-                    ),
-                    Text(
-                      "\$01.00",
-                      style: GoogleFonts.poppins(
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Aditional Discount",
-                      style: GoogleFonts.poppins(
-                          fontSize: 15.sp, color: Colors.black54),
-                    ),
-                    Text(
-                      "-",
-                      style: GoogleFonts.poppins(
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Total",
-                      style: GoogleFonts.poppins(
-                          fontSize: 15.sp,
-                          color: Colors.black87,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      "\$61.00",
-                      style: GoogleFonts.poppins(
-                          fontSize: 16.sp,
-                          color: const Color.fromARGB(255, 4, 92, 58),
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Divider(
-                  color: Colors.black12,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text("Payment Method"),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.06,
-                width: MediaQuery.of(context).size.width * 0.9,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black12,
-                  ),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Visa",
-                          style: GoogleFonts.inter(
-                              fontStyle: FontStyle.italic,
-                              fontSize: 17.sp,
-                              fontWeight: FontWeight.w600,
-                              color: const Color.fromARGB(255, 38, 39, 117)),
-                        ),
-                        Text(
-                          "Change",
-                          style: GoogleFonts.inter(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 0,
-                              color: const Color.fromARGB(137, 56, 56, 56)),
-                        ),
-                      ]),
-                ),
-              ),
-              SizedBox(
-                height: 80,
-                width: double.infinity,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 1,
-                  ),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.06,
-                          width: MediaQuery.of(context).size.width * 0.2100,
-                          decoration: const BoxDecoration(),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Total",
-                                  style: GoogleFonts.inter(
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.w500,
-                                      letterSpacing: 0,
-                                      color: const Color.fromARGB(
-                                          137, 56, 56, 56)),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "  \$61",
-                                  style: GoogleFonts.inter(
-                                      fontSize: 19.sp,
-                                      fontWeight: FontWeight.w600,
-                                      letterSpacing: 0,
-                                      color: Colors.black87),
-                                ),
-                              ]),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            width: MediaQuery.of(context).size.width * 0.4300,
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 2, 179, 149),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Book",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 15.sp,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ]),
-                          ),
-                        ),
-                      ]),
-                ),
-              ),
+              const SizedBox(height: 20),
             ],
           ),
-        ]),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLabelRow(String left, String right) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            left,
+            style: GoogleFonts.inter(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1,
+            ),
+          ),
+          Text(
+            right,
+            style: GoogleFonts.inter(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500,
+              color: const Color.fromARGB(137, 56, 56, 56),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoRow(BuildContext context, String iconPath, String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          Container(
+            height: 45,
+            width: 45,
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 247, 247, 247),
+              borderRadius: BorderRadius.circular(18),
+              image: DecorationImage(
+                image: AssetImage(iconPath),
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              text,
+              style: GoogleFonts.poppins(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPriceRow(String label, String value,
+      {bool bold = false, Color? color}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: GoogleFonts.poppins(
+              fontSize: 15.sp,
+              color: bold ? Colors.black87 : Colors.black54,
+              fontWeight: bold ? FontWeight.w500 : FontWeight.normal,
+            ),
+          ),
+          Text(
+            value,
+            style: GoogleFonts.poppins(
+              fontSize: 16.sp,
+              fontWeight: bold ? FontWeight.w600 : FontWeight.normal,
+              color: color ?? Colors.black,
+            ),
+          ),
+        ],
       ),
     );
   }

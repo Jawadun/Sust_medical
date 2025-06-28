@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:medical/Screens/Login-Signup/login_signup.dart';
 import 'package:medical/Screens/Login-Signup/register_screen.dart';
+import 'package:medical/Screens/Login-Signup/login.dart';
 import 'package:medical/Screens/Views/Screen1.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:medical/Screens/Views/Homepage.dart';
+import 'package:medical/Screens/Login-Signup/Profile_screen.dart';
+import 'package:medical/Screens/Views/medical_info.dart';
+import 'package:medical/Screens/Views/appointment.dart';
+import 'package:medical/Screens/Views/faqs.dart';
+import 'package:medical/Screens/Views/payment.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +26,7 @@ void main() async {
     ),
   );
 
-  runApp(const Medics()); // ✅ You missed this!
+  runApp(const Medics());
 }
 
 class Medics extends StatelessWidget {
@@ -29,16 +36,21 @@ class Medics extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveSizer(
       builder: (context, orientation, screenType) {
-       return MaterialApp(
-  debugShowCheckedModeBanner: false,
-  initialRoute: '/',
-  routes: {
-    '/': (context) => const Screen1(),
-    '/login': (context) => const login_signup(),
-    '/register': (context) => const Register(),
-  },
-);
-
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const Screen1(),
+            '/login': (context) => const login_signup(),
+            '/register': (context) => const Register(),
+            '/homepage': (context) => const Homepage(),
+            '/profile': (context) => const Profile_screen(),
+            '/medical_info': (context) => const MedicalInfoScreen(),
+            '/appointment': (context) => const appointment(),
+            '/faqs': (context) => const FAQScreen(),
+            '/payment': (context) => const PaymentMethodScreen(),
+          },
+        );
       },
     );
   }

@@ -2,13 +2,14 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
-    id("com.google.gms.google-services") // Required for Firebase
+    id("com.google.gms.google-services") // ✅ Needed for Firebase
 }
 
 android {
-    namespace = "com.example.sust_medical"
+    namespace = "com.example.sust_medical" // ✅ Must match your Firebase package name
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "27.0.12077973" // ✅ Use latest NDK required by plugins
+
+    ndkVersion = "27.0.12077973" // ✅ Matches required Firebase NDK version
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -20,8 +21,8 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.sust_medical"
-        minSdk = 23 // ✅ Hardcode to fix Firebase crash
+        applicationId = "com.example.sust_medical" // ✅ Same as in google-services.json
+        minSdk = 23 // ✅ Firebase requires at least 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -29,7 +30,7 @@ android {
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("debug") // Optional: replace with real signingConfig for production
+            signingConfig = signingConfigs.debug // 🔒 Replace with release key for production
         }
     }
 }
@@ -37,3 +38,6 @@ android {
 flutter {
     source = "../.."
 }
+
+// ✅ Required to enable Firebase SDKs
+apply plugin: 'com.google.gms.google-services'

@@ -47,10 +47,12 @@ class _RegisterState extends State<Register> {
       );
       return;
     }
-
-    if (password.length < 6) {
+  bool isUpperCase = password.contains(RegExp(r'[A-Z]'));
+    bool isLowerCase = password.contains(RegExp(r'[a-z]'));
+    bool isSpecialChar = password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+    if (password.length < 6 || !isUpperCase || !isLowerCase || !isSpecialChar) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Password should be at least 6 characters")),
+        const SnackBar(content: Text("Password should be at least 6 characters, contain uppercase, lowercase, and special characters")),
       );
       return;
     }
@@ -70,7 +72,6 @@ class _RegisterState extends State<Register> {
         password: password,
       );
 
-      // Store user data in Firestore
       await FirebaseFirestore.instance.collection("users").doc(userCredential.user!.uid).set({
         'name': name,
         'email': email,
@@ -100,9 +101,7 @@ class _RegisterState extends State<Register> {
         default:
           message = 'Authentication error: ${e.message}';
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Error: ${e.toString()}")),
@@ -116,6 +115,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true, 
       appBar: AppBar(
         centerTitle: true,
         leading: IconButton(
@@ -134,95 +134,98 @@ class _RegisterState extends State<Register> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            Auth_text_field(
-              controller: emailController,
-              text: "Enter your email",
-              icon: "lib/icons/email.png",
-              isPassword: false,
-              keyboardType: TextInputType.emailAddress, // add this param in your widget if missing
-            ),
-            const SizedBox(height: 10),
-            Auth_text_field(
-              controller: nameController,
-              text: "Enter your name",
-              icon: "lib/icons/person.png",
-              isPassword: false,
-            ),
-            const SizedBox(height: 10),
-            Auth_text_field(
-              controller: passwordController,
-              text: "Enter your password",
-              icon: "lib/icons/lock.png",
-              isPassword: true,
-            ),
-            Row(
-              children: [
-                Checkbox(
-                  value: agreeTerms,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      agreeTerms = value ?? false;
-                    });
-                  },
-                ),
-                Flexible(
-                  child: Text(
-                    "I agree to the terms and conditions",
-                    style: GoogleFonts.poppins(fontSize: 14.sp, color: Colors.black87),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 30),
-            SizedBox(
-              height: 50,
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: isLoading ? null : signUp,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 3, 190, 150),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                ),
-                child: isLoading
-                    ? const CircularProgressIndicator(color: Colors.white)
-                    : Text(
-                        "Create Account",
-                        style: GoogleFonts.poppins(fontSize: 18.sp, color: Colors.white),
-                      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              Auth_text_field(
+                controller: emailController,
+                text: "Enter your email",
+                icon: "lib/icons/email.png",
+                isPassword: false,
+                keyboardType: TextInputType.emailAddress,
               ),
-            ),
-            const SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Already have an account? ",
-                  style: GoogleFonts.poppins(fontSize: 14.sp, color: Colors.black87),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      PageTransition(type: PageTransitionType.bottomToTop, child: const Login()),
-                    );
-                  },
-                  child: Text(
-                    "Sign in",
-                    style: GoogleFonts.poppins(
-                      fontSize: 14.sp,
-                      color: const Color.fromARGB(255, 3, 190, 150),
-                      fontWeight: FontWeight.bold,
+              const SizedBox(height: 10),
+              Auth_text_field(
+                controller: nameController,
+                text: "Enter your name",
+                icon: "lib/icons/person.png",
+                isPassword: false,
+              ),
+              const SizedBox(height: 10),
+              Auth_text_field(
+                controller: passwordController,
+                text: "Enter your password",
+                icon: "lib/icons/lock.png",
+                isPassword: true,
+              ),
+              Row(
+                children: [
+                  Checkbox(
+                    value: agreeTerms,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        agreeTerms = value ?? false;
+                      });
+                    },
+                  ),
+                  Flexible(
+                    child: Text(
+                      "I agree to the terms and conditions",
+                      style: GoogleFonts.poppins(fontSize: 14.sp, color: Colors.black87),
                     ),
                   ),
+                ],
+              ),
+              const SizedBox(height: 30),
+              SizedBox(
+                height: 50,
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: isLoading ? null : signUp,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 3, 190, 150),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                  ),
+                  child: isLoading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : Text(
+                          "Create Account",
+                          style: GoogleFonts.poppins(fontSize: 18.sp, color: Colors.white),
+                        ),
                 ),
-              ],
-            ),
-          ],
+              ),
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Already have an account? ",
+                    style: GoogleFonts.poppins(fontSize: 14.sp, color: Colors.black87),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(type: PageTransitionType.bottomToTop, child: const Login()),
+                      );
+                    },
+                    child: Text(
+                      "Sign in",
+                      style: GoogleFonts.poppins(
+                        fontSize: 14.sp,
+                        color: const Color.fromARGB(255, 3, 190, 150),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );

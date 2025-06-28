@@ -5,7 +5,7 @@ class Auth_text_field extends StatelessWidget {
   final String icon;
   final TextEditingController controller;
   final bool isPassword;
-  final TextInputType keyboardType; // add this
+  final TextInputType keyboardType; 
 
   const Auth_text_field({
     super.key,
@@ -13,7 +13,7 @@ class Auth_text_field extends StatelessWidget {
     required this.icon,
     required this.controller,
     required this.isPassword,
-    this.keyboardType = TextInputType.text, // default to text
+    this.keyboardType = TextInputType.text, 
   });
 
   @override

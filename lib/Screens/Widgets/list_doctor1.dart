@@ -53,13 +53,13 @@ class list_doctor1 extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  //Main text
+                
                   Text(
                     maintext,
                     style: GoogleFonts.poppins(
                         fontSize: 13.sp, fontWeight: FontWeight.bold),
                   ),
-                  //Sub text
+                
                   Text(
                     subtext,
                     style: GoogleFonts.poppins(
@@ -70,7 +70,7 @@ class list_doctor1 extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  //Rating star container start from here!!
+                  
                   Row(
                     children: [
                       Container(
@@ -101,7 +101,7 @@ class list_doctor1 extends StatelessWidget {
                           ),
                         ]),
                       ),
-                      //Sizebox betwen ratting + distance
+                      
                       const SizedBox(
                         width: 10,
                       ),

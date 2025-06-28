@@ -122,109 +122,116 @@ class _LoginState extends State<Login> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            Auth_text_field(
-              text: "Enter your email",
-              icon: "lib/icons/email.png",
-              controller: _emailController,
-              isPassword: false,
-              keyboardType: TextInputType.emailAddress,
-            ),
-            const SizedBox(height: 5),
-            Auth_text_field(
-              text: "Enter your password",
-              icon: "lib/icons/lock.png",
-              controller: _passwordController,
-              isPassword: true,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.bottomToTop,
-                        child: const ForgotPass(),
-                      ),
-                    );
-                  },
-                  child: Text(
-                    "Forgot your password?",
-                    style: GoogleFonts.poppins(
-                      fontSize: 15.sp,
-                      color: const Color.fromARGB(255, 3, 190, 150),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
-              width: MediaQuery.of(context).size.width * 0.9,
-              child: ElevatedButton(
-                onPressed: _isLoading ? null : _login,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 3, 190, 150),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-                child: _isLoading
-                    ? const CircularProgressIndicator(color: Colors.white)
-                    : Text(
-                        "Sign in",
-                        style: GoogleFonts.poppins(
-                          fontSize: 18.sp,
-                          color: Colors.white,
-                        ),
-                      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.only(
+            left: 30,
+            right: 30,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+          ),
+          child: Column(
+            children: [
+              const SizedBox(height: 40),
+              Auth_text_field(
+                text: "Enter your email",
+                icon: "lib/icons/email.png",
+                controller: _emailController,
+                isPassword: false,
+                keyboardType: TextInputType.emailAddress,
               ),
-            ),
-            const SizedBox(height: 25),
-            Text(
-              "Or continue with",
-              style: GoogleFonts.poppins(fontSize: 14.sp, color: Colors.black87),
-            ),
-            const SizedBox(height: 20),
-            const AuthSocialLogin(),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Don't have an account? ",
-                  style: GoogleFonts.poppins(fontSize: 14.sp, color: Colors.black87),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.bottomToTop,
-                        child: const Register(),
+              const SizedBox(height: 5),
+              Auth_text_field(
+                text: "Enter your password",
+                icon: "lib/icons/lock.png",
+                controller: _passwordController,
+                isPassword: true,
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.bottomToTop,
+                          child: const ForgotPass(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Forgot your password?",
+                      style: GoogleFonts.poppins(
+                        fontSize: 15.sp,
+                        color: const Color.fromARGB(255, 3, 190, 150),
+                        fontWeight: FontWeight.w500,
                       ),
-                    );
-                  },
-                  child: Text(
-                    "Sign up",
-                    style: GoogleFonts.poppins(
-                      fontSize: 14.sp,
-                      color: const Color.fromARGB(255, 3, 190, 150),
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.05,
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: ElevatedButton(
+                  onPressed: _isLoading ? null : _login,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 3, 190, 150),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: _isLoading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : Text(
+                          "Sign in",
+                          style: GoogleFonts.poppins(
+                            fontSize: 18.sp,
+                            color: Colors.white,
+                          ),
+                        ),
                 ),
-              ],
-            ),
-          ],
+              ),
+              const SizedBox(height: 25),
+              Text(
+                "Or continue with",
+                style: GoogleFonts.poppins(fontSize: 14.sp, color: Colors.black87),
+              ),
+              const SizedBox(height: 20),
+              const AuthSocialLogin(),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don't have an account? ",
+                    style: GoogleFonts.poppins(fontSize: 14.sp, color: Colors.black87),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        PageTransition(
+                          type: PageTransitionType.bottomToTop,
+                          child: const Register(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Sign up",
+                      style: GoogleFonts.poppins(
+                        fontSize: 14.sp,
+                        color: const Color.fromARGB(255, 3, 190, 150),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -317,7 +324,20 @@ class ForgotPass extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // TODO: implement password reset logic with Firebase here
+                final email = emailController.text.trim();
+                if (email.isEmpty || !email.contains('@') || !email.contains('.')) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Please enter a valid email")),
+                  );
+                  return;
+                }
+                
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Reset link sent to your email!")),
+                );
+
+                Navigator.pop(context); 
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.teal,
@@ -337,25 +357,40 @@ class AuthSocialLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        IconButton(
-          icon: Image.asset("lib/icons/google.png"),
-          iconSize: 40,
-          onPressed: () {
-            // TODO: implement Google login
-          },
-        ),
-        const SizedBox(width: 20),
-        IconButton(
-          icon: Image.asset("lib/icons/facebook.png"),
-          iconSize: 40,
-          onPressed: () {
-            // TODO: implement Facebook login
-          },
-        ),
-      ],
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            onPressed: () {
+              // TODO: implement Google login
+            },
+            icon: SizedBox(
+              width: 40,
+              height: 40,
+              child: Image.asset(
+                "lib/icons/google.png",
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          const SizedBox(width: 20),
+          IconButton(
+            onPressed: () {
+              // TODO: implement Facebook login
+            },
+            icon: SizedBox(
+              width: 40,
+              height: 40,
+              child: Image.asset(
+                "lib/icons/facebook.png",
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -50,7 +50,7 @@ class tab1 extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 01,
           child: ElevatedButton(
             onPressed: () {
-              // Perform verification or other actions here
+              
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color.fromARGB(255, 3, 190, 150),

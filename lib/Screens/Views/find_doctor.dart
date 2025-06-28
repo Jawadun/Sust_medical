@@ -6,8 +6,63 @@ import 'package:medical/Screens/Widgets/listicons.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-class find_doctor extends StatelessWidget {
+class find_doctor extends StatefulWidget {
   const find_doctor({super.key});
+
+  @override
+  State<find_doctor> createState() => _find_doctorState();
+}
+
+class _find_doctorState extends State<find_doctor> {
+  final TextEditingController _searchController = TextEditingController();
+
+  final List<Map<String, String>> doctors = [
+    {
+      "name": "Dr. Marcus Horizon",
+      "distance": "800m away",
+      "image": "lib/icons/male-doctor.png",
+      "rating": "4.7",
+      "specialty": "Cardiologist",
+    },
+    {
+      "name": "Dr. Maria Elena",
+      "distance": "1.2km away",
+      "image": "lib/icons/female-doctor.png",
+      "rating": "4.6",
+      "specialty": "Psychiatrist",
+    },
+    {
+      "name": "Dr. Stevi Jessi",
+      "distance": "2km away",
+      "image": "lib/icons/doctor2.png",
+      "rating": "4.8",
+      "specialty": "Orthopedist",
+    },
+  ];
+
+  List<Map<String, String>> filteredDoctors = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filteredDoctors = doctors; 
+    _searchController.addListener(() {
+      final query = _searchController.text.toLowerCase();
+      setState(() {
+        filteredDoctors = doctors.where((doctor) {
+          final nameLower = doctor["name"]!.toLowerCase();
+          final specialtyLower = doctor["specialty"]!.toLowerCase();
+          return nameLower.contains(query) || specialtyLower.contains(query);
+        }).toList();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,17 +78,13 @@ class find_doctor extends StatelessWidget {
           },
         ),
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        title: Column(
-          children: [
-            Text(
-              "Find Doctor",
-              style: GoogleFonts.inter(
-                  color: const Color.fromARGB(255, 51, 47, 47),
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1),
-            ),
-          ],
+        title: Text(
+          "Find Doctor",
+          style: GoogleFonts.inter(
+              color: const Color.fromARGB(255, 51, 47, 47),
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w600,
+              letterSpacing: 1),
         ),
         toolbarHeight: 130,
         elevation: 0,
@@ -42,31 +93,27 @@ class find_doctor extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(children: [
-          const SizedBox(
-            height: 20,
-          ),
+          const SizedBox(height: 20),
           Center(
             child: Container(
               height: MediaQuery.of(context).size.height * 0.06,
               width: MediaQuery.of(context).size.width * 0.9,
-              decoration: const BoxDecoration(),
               child: TextField(
+                controller: _searchController,
                 textAlign: TextAlign.start,
-                textInputAction: TextInputAction.none,
+                textInputAction: TextInputAction.done,
                 obscureText: false,
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.text,
                 textAlignVertical: TextAlignVertical.center,
                 decoration: InputDecoration(
                   focusColor: Colors.black26,
                   fillColor: const Color.fromARGB(255, 247, 247, 247),
                   filled: true,
                   prefixIcon: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.01,
-                      width: MediaQuery.of(context).size.width * 0.01,
+                      height: MediaQuery.of(context).size.height * 0.02,
+                      width: MediaQuery.of(context).size.width * 0.02,
                       child: Image.asset(
                         "lib/icons/search.png",
                         filterQuality: FilterQuality.high,
@@ -84,182 +131,42 @@ class find_doctor extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Text(
-                  "Top Doctor",
-                  style: GoogleFonts.inter(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
-                    color: const Color.fromARGB(255, 46, 46, 46),
+          const SizedBox(height: 20),
+          filteredDoctors.isEmpty
+              ? Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    "No doctors found.",
+                    style: GoogleFonts.inter(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey),
                   ),
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: filteredDoctors.length,
+                  itemBuilder: (context, index) {
+                    final doctor = filteredDoctors[index];
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.rightToLeft,
+                                child: const DoctorDetails()));
+                      },
+                      child: doctorList(
+                        distance: doctor["distance"] ?? "",
+                        image: doctor["image"] ?? "",
+                        maintext: doctor["name"] ?? "",
+                        numRating: doctor["rating"] ?? "",
+                        subtext: doctor["specialty"] ?? "",
+                      ),
+                    );
+                  },
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const Row(
-            children: [
-              SizedBox(
-                width: 10,
-              ),
-              listIcons(Icon: "lib/icons/Doctor.png", text: "General"),
-              listIcons(Icon: "lib/icons/Lungs.png", text: "Lungs Prob"),
-              listIcons(Icon: "lib/icons/Dentist.png", text: "General"),
-              listIcons(Icon: "lib/icons/psychology.png", text: "Psychiatrist")
-            ],
-          ),
-          const Row(
-            children: [
-              SizedBox(
-                width: 10,
-              ),
-              listIcons(Icon: "lib/icons/covid.png", text: "General"),
-              listIcons(Icon: "lib/icons/injection.png", text: "Lungs Prob"),
-              listIcons(Icon: "lib/icons/cardiologist.png", text: "General"),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Text(
-                  "Recommended Doctors",
-                  style: GoogleFonts.inter(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
-                    color: const Color.fromARGB(255, 46, 46, 46),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      type: PageTransitionType.rightToLeft,
-                      child: const DoctorDetails()));
-            },
-            child: const doctorList(
-                distance: "800m away",
-                image: "lib/icons/male-doctor.png",
-                maintext: "Dr. Marcus Horizon",
-                numRating: "4.7",
-                subtext: "Chardiologist"),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Text(
-                  "Your Recent Doctors",
-                  style: GoogleFonts.inter(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
-                    color: const Color.fromARGB(255, 46, 46, 46),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1400,
-                width: MediaQuery.of(context).size.width * 0.2900,
-                child: Column(children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.100,
-                    width: MediaQuery.of(context).size.width * 0.1900,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: AssetImage("lib/icons/male-doctor.png"),
-                            filterQuality: FilterQuality.high)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("Dr. Marcus")],
-                  )
-                ]),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1400,
-                width: MediaQuery.of(context).size.width * 0.2900,
-                child: Column(children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.100,
-                    width: MediaQuery.of(context).size.width * 0.1900,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: AssetImage("lib/icons/female-doctor.png"),
-                            filterQuality: FilterQuality.high,
-                            fit: BoxFit.contain)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("Dr. Maria")],
-                  )
-                ]),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1400,
-                width: MediaQuery.of(context).size.width * 0.2900,
-                child: Column(children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.100,
-                    width: MediaQuery.of(context).size.width * 0.1900,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: AssetImage(
-                              "lib/icons/black-doctor.png",
-                            ),
-                            fit: BoxFit.contain,
-                            filterQuality: FilterQuality.high)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [Text("Dr. Luke")],
-                  )
-                ]),
-              ),
-            ],
-          ),
         ]),
       ),
     );

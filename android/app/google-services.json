@@ -12,7 +12,12 @@
           "package_name": "com.example.sust_medical"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "501685871815-rns4eptbqrtfj850k3ncpbkb47st5n85.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCekLpSO_N-qZsiGqsRekY0ggVHHcq6lbk"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501685871815-rns4eptbqrtfj850k3ncpbkb47st5n85.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

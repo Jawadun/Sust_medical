@@ -34,7 +34,6 @@ class doctorList extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              //Doctor image Container
               Container(
                 height: MediaQuery.of(context).size.height * 0.1200,
                 width: MediaQuery.of(context).size.width * 0.2400,
