@@ -14,7 +14,6 @@ class Profile_screen extends StatefulWidget {
 class _Profile_screenState extends State<Profile_screen> {
   Uint8List? _avatarBytes;
 
-  // Controller for editable name
   final TextEditingController _nameController =
       TextEditingController(text: "Jawadun Noor");
 
@@ -106,7 +105,6 @@ class _Profile_screenState extends State<Profile_screen> {
               ),
               const SizedBox(height: 20),
 
-              // Editable name text field
               SizedBox(
                 width: 60.w,
                 child: TextField(
